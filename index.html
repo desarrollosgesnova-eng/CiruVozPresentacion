@@ -139,7 +139,7 @@
   <!-- Vue 3 -->
   <script src="vue.global.prod.js"></script>
   <script>
-    const { createApp } = Vue;
+       const { createApp } = Vue;
     createApp({
       data() {
         return { supported: false, isListening: false, busy: false, recognition: null, recognitionError: '', lang: 'es-CL', interimResults: true, continuous: true, autoPunct: true, interimText: '', finalText: '' }
@@ -148,6 +148,22 @@
         this.supported = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
         if (this.supported) this.initRecognition();
         window.addEventListener('keydown', (e) => { if ((e.ctrlKey || e.metaKey) && e.code === 'Space') { e.preventDefault(); this.toggleListening(); } });
+
+        // Bloqueo de teclas (F12, Ctrl+U)
+        window.addEventListener('keydown', function(e) {
+          if (e.key === 'F12' || (e.ctrlKey && e.key.toLowerCase() === 'u')) {
+            e.preventDefault();
+            //alert('Acción bloqueada');
+            return false;
+          }
+        });
+
+        // Bloquear clic derecho
+        window.addEventListener('contextmenu', function(e) {
+          e.preventDefault();
+          //alert('Acción bloqueada');
+          return false;
+        });
       },
       methods: {
         initRecognition() { const SR = window.SpeechRecognition || window.webkitSpeechRecognition; this.recognition = new SR(); this.recognition.lang = this.lang; this.recognition.interimResults = this.interimResults; this.recognition.continuous = this.continuous; this.recognition.maxAlternatives = 1;
