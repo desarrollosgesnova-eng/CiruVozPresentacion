@@ -80,7 +80,7 @@
 <body>
   <div id="app" class="app" v-cloak>
     <header>
-      <img src="https://gesnovasalud.com/wp-content/uploads/2024/03/gesnova_logo.png" alt="GesNova Salud" class="logo" />
+      <img src="gesnova_logo.png" alt="GesNova Salud" class="logo" />
       <div class="status">
         <span :class="['dot', recognitionError ? 'error' : isListening ? 'listening' : 'idle']"></span>
         <span v-if="!supported">Tu navegador no soporta Web Speech API.</span>
@@ -95,6 +95,7 @@
         <label>
           Idioma
           <select v-model="lang" @change="applyLang">
+            <option value="es-CL">Español (Chile)</option>
             <option value="es-ES">Español (España)</option>
             <option value="es-MX">Español (México)</option>
             <option value="es-CR">Español (Costa Rica)</option>
@@ -136,13 +137,12 @@
   </div>
 
   <!-- Vue 3 -->
-  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="vue.global.prod.js"></script>
   <script>
-   
     const { createApp } = Vue;
     createApp({
       data() {
-        return { supported: false, isListening: false, busy: false, recognition: null, recognitionError: '', lang: 'es-ES', interimResults: true, continuous: true, autoPunct: true, interimText: '', finalText: '' }
+        return { supported: false, isListening: false, busy: false, recognition: null, recognitionError: '', lang: 'es-CL', interimResults: true, continuous: true, autoPunct: true, interimText: '', finalText: '' }
       },
       mounted() {
         this.supported = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
